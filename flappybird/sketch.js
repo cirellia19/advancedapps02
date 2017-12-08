@@ -1,88 +1,85 @@
-//var
+//vars
 var bird;
-
-//object(pipes)
 var pipes = [];
 
 function setup() {
-  createCanvas(400, 600);
-  
-  //class
+  createCanvas(1000, 1000);
   bird = new Bird();
-  
-  //object
   pipes.push(new Pipe());
 }
 
 function draw() {
   background(0);
 
-  //pipes(draw)
+  //when pipe hits bird
   for (var i = pipes.length-1; i >= 0; i--) {
     pipes[i].show();
     pipes[i].update();
 
-    //hit
     if (pipes[i].hits(bird)) {
       console.log("HIT");
+      fill(255,255,0);
+      textSize(100);
+      text("Try Again",100,400);
+      document.location.reload()
     }
-
-    //offreen pipes
+    
     if (pipes[i].offscreen()) {
       pipes.splice(i, 1);
     }
   }
-
-  //flappybird(draw)
+  
+//displays bird and pipes 
   bird.update();
   bird.show();
   if (frameCount % 100 == 0) {
     pipes.push(new Pipe());
   }
-	
+  var s = second();
+  fill(255)
+  textSize(20)
+  text("Current second: \n" + s, 5, 20);
 }
-
-//move
+ 
+//makes bird move
 function mousePressed() {
-  if (bird.up()) {
-    //console.log("SPACE");
+  if (bird.up()) {  
   }
 }
 
-//flappybird(class)
+//flappybird
 function Bird() {
   this.y = height/2;
   this.x = 64;
-
-  //flappybird movements measurments 
-  this.gravity = 0.7;
+  
+//moving measurments
+  this.gravity = 0.6;
   this.lift = -15;
   this.velocity = 0;
 
-  //display flappybird
+  //draws the bird
   this.show = function() {
     
-    //body
-    fill(255,255,0);
-    ellipse(this.x, this.y, 32, 32);
-    
     //beak
-    fill(255,255,0);
-    triangle(this.x,this.y+15,this.x,this.y-15,this.x+25,this.y)
+    fill(103,114,94)
+    triangle(this.x + 75,this.y +0,this.x + 21,this.y +22,this.x + 20,this.y - 19)
+    
+    fill(178,175,0);
+    ellipse(this.x, this.y, 75, 75);
     
     //eye
-    noStroke();
     fill(0)
-    ellipse(this.x+5, this.y-8, 10, 10);  
+    ellipse(this.x + 10,this.y - 20,20,20)
+    fill(0,145,148)
+    ellipse(this.x + 10,this.y - 20,7,7)
+
   }
 
-  
-  //flappybird move1
+  //bird move
   this.up = function() {
     this.velocity += this.lift;
   }
 
-  //flappybird move2
   this.update = function() {
     this.velocity += this.gravity;
     this.velocity *= 0.9;
@@ -99,21 +96,16 @@ function Bird() {
     }
   }
 }
-
-//pipes(object)
+//pipes
 function Pipe() {
-  
-  //pipe measurments
   this.top = random(height/2);
   this.bottom = random(height/2);
   this.x = width;
   this.w = 20;
   this.speed = 2;
 
-  //when bird hits pipe1
+//bird hits the pipes(dies)
   this.highlight = false;
-
-  //when bird hits pipe2
   this.hits = function(bird) {
     if (bird.y < this.top || bird.y > height - this.bottom) {
       if (bird.x > this.x && bird.x < this.x + this.w) {
@@ -125,7 +117,7 @@ function Pipe() {
     return false;
   }
 
-  //show pipes
+  //pipe measurments 
   this.show = function() {
     fill(255);
     if (this.highlight) {
@@ -135,7 +127,7 @@ function Pipe() {
     rect(this.x, height-this.bottom, this.w, this.bottom);
   }
 
-  //pipe movement
+  //movement spreed
   this.update = function() {
     this.x -= this.speed;
   }
