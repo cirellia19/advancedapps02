@@ -3,9 +3,12 @@ var bird;
 var pipes = [];
 
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(600, 600);
   bird = new Bird();
   pipes.push(new Pipe());
+  
+  //music
+  new Audio('https://www.bensound.com/royalty-free-music?download=summer').play()
 }
 
 function draw() {
@@ -45,6 +48,7 @@ function draw() {
 function mousePressed() {
   if (bird.up()) {  
   }
+  
 }
 
 //flappybird
