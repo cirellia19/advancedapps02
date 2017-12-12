@@ -22,8 +22,8 @@ function draw() {
     if (pipes[i].hits(bird)) {
       console.log("HIT");
       fill(255,255,0);
-      textSize(100);
-      text("Try Again",100,400);
+      textSize(75);
+      text("Try Again",50,250);
       document.location.reload()
     }
     
