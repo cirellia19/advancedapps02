@@ -1,6 +1,12 @@
 //vars
 var bird;
 var pipes = [];
+var b = 700
+var e = 600
+var f = 500
+var g = 300
+var t = 400
+
 
 function setup() {
   createCanvas(400,600);
@@ -12,7 +18,68 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  //background
+  background(0, 208, 244);
+  b = b - 1  
+  f = f - 1.5
+  g = g - 2
+  t = t - .75
+  e = e - .5
+  
+  
+  //cloud 1
+  fill(255)
+  noStroke()
+  ellipse(this.b ,60,40,40)
+  ellipse(this.b - 15,60,35,30)
+  ellipse(this.b + 15,60,35,30)
+
+ //cloud 2
+  ellipse(this.f +100 ,100,40,40)
+  ellipse(this.f + 85,100,35,30)
+  ellipse(this.f + 115,100,35,30)
+
+  //cloud 3
+  ellipse(this.g - 100,10,40,40)
+  ellipse(this.g - 115,10,35,30)
+  ellipse(this.g - 85,10,35,30)
+  
+  //cloud 4
+  ellipse(this.t ,150,40,40)
+  ellipse(this.t - 15,150,35,30)
+  ellipse(this.t + 15,150,35,30)
+  
+  if( t < -140){
+    t = 600
+  }
+   
+  if(f < -140){
+  f = 600
+  }
+    
+  if(g < -140){
+  g = 700
+  
+  if(b < -140){
+  b = 600
+  }
+  }
+  
+  //sun
+  fill(255,255,0)
+  ellipse(this.e - 200,0,150)
+  if(e < -120){
+  e = 700
+  }
+
+  //grass
+  fill(41, 155, 53)
+  rect(-10,550,420,570)
+  
+  //dirt
+  fill(61, 39, 39)
+  rect(-10,570,420,600)
+  
 
   //when pipe hits bird
   for (var i = pipes.length-1; i >= 0; i--) {
@@ -68,7 +135,7 @@ function Bird() {
     fill(103,114,94)
     triangle(this.x + 75,this.y +0,this.x + 21,this.y +22,this.x + 20,this.y - 19)
     
-    fill(178,175,0);
+    fill(200,200,0);
     ellipse(this.x, this.y, 75, 75);
     
     //eye
@@ -76,6 +143,17 @@ function Bird() {
     ellipse(this.x + 10,this.y - 20,20,20)
     fill(0,145,148)
     ellipse(this.x + 10,this.y - 20,7,7)
+    
+    //wing
+    if (mouseIsPressed === true) {
+      fill(120)
+      triangle(this.x+10, this.y,this.x-20, this.y,this.x-5, this.y-20);
+    } else {
+      fill(120)
+      triangle(this.x+10, this.y,this.x-20, this.y,this.x-5, this.y+20);
+  }
+    
+
 
   }
 
